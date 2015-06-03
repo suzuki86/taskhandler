@@ -1,0 +1,12 @@
+- project: project1
+  tasks:
+  - task: do something1
+    due_date: 2015-05-11
+  - task: do something2
+    due_date: 2015-05-30
+  - task: do something3 
+    due_date: 2015-05-25
+- project: project2
+  tasks:
+  - task: do something1 
+    due_date: 2015-06-03
