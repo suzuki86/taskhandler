@@ -6,7 +6,11 @@
     due_date: 2015-05-30
   - task: do something3 
     due_date: 2015-05-25
+  - task: do something4 
+  - task: do something5 
+    due_date: 2014-03-10
 - project: project2
   tasks:
-  - task: do something1 
+  - task: do something6 
     due_date: 2015-06-03
+  - task: do something7 

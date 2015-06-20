@@ -1,6 +1,7 @@
 require 'pp'
 require 'yaml'
 require 'optparse'
+require 'date'
 
 default_file_path = "projects.yml"
 
@@ -31,10 +32,12 @@ else
   projects = YAML.load_file default_file_path
 end
 
-# Output tasks
 tasks = []
 projects.each do |project|
   project['tasks'].each do |task|
+    if task['due_date'].nil?
+      task['due_date'] = 'None'
+    end
     tasks << {
       project: project['project'],
       task: task['task'],
@@ -48,7 +51,13 @@ if !options[:project].nil?
 end
 
 if !options[:duedate].nil?
+  # Extract item that does not be set due date.
+  tasks, indefinite_tasks = tasks.partition do |item|
+    item[:duedate].kind_of?(Date)
+  end
+
   tasks = tasks.sort_by { |k| k[:duedate] }
+  tasks.concat(indefinite_tasks)
 end
 
 tasks.each do |task|
