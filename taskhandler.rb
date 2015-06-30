@@ -20,11 +20,10 @@ def load_projects(filepath)
   end
 end
 
-def delete_task
-  arg_task_number = ARGV[1]
+def delete_task(task_number)
   projects = YAML.load_file default_file_path
   tasks = convert_projects_to_tasks(projects)
-  tasks.delete_at(arg_task_number.to_i)
+  tasks.delete_at(task_number.to_i)
   tasks
 end
 
@@ -126,8 +125,7 @@ if subcommand == "add"
   }
   write_to_yaml(projects)
 elsif subcommand == "del"
-  delete_task
-  modified_projects = convert_tasks_to_projects(delete_task)
+  modified_projects = convert_tasks_to_projects(delete_task(ARGV[1]))
   write_to_yaml(modified_projects)
 else
   options = parse_options(ARGV)
