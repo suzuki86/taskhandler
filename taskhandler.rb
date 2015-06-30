@@ -83,7 +83,6 @@ def convert_tasks_to_projects(tasks)
 end
 
 def parse_options(argv)
-  argv = ARGV
   # Parse options
   options = {}
   opt = OptionParser.new
