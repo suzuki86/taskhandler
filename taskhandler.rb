@@ -83,7 +83,8 @@ def convert_tasks_to_projects(tasks)
 
 end
 
-def parse_options
+def parse_options(argv)
+  argv = ARGV
   # Parse options
   options = {}
   opt = OptionParser.new
@@ -102,7 +103,7 @@ def parse_options
   opt.on('-f [FILE_PATH]') do |v|
     options[:file_path] = v
   end
-  opt.parse!(ARGV)
+  opt.parse!(argv)
   options
 end
 
@@ -129,7 +130,7 @@ elsif subcommand == "del"
   modified_projects = convert_tasks_to_projects(delete_task)
   write_to_yaml(modified_projects)
 else
-  options = parse_options
+  options = parse_options(ARGV)
 
   # Load task files
   projects = load_projects(options[:file_path])
