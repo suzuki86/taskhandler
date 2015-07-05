@@ -1,38 +1,16 @@
 require 'pp'
 require 'yaml'
-require 'optparse'
 require 'date'
 require_relative 'lib/project'
+require_relative 'lib/option_parser'
 
 def default_file_path
   "projects.yml"
 end
 
-def parse_options(argv)
-  # Parse options
-  options = {}
-  opt = OptionParser.new
-  opt.on('-t [TASKNAME]') do |v|
-    options[:taskname] = v
-  end
-  opt.on('-d') do |v|
-    options[:duedate] = v
-  end
-  opt.on('-p [PROJECT]') do |v|
-    options[:project] = v
-  end
-  opt.on('-s [SORTBY]') do |v|
-    options[:sortby] = v
-  end
-  opt.on('-f [FILE_PATH]') do |v|
-    options[:file_path] = v
-  end
-  opt.parse!(argv)
-  options
-end
-
 projects = TaskHandler::Project.new
 projects.load_projects
+options = TaskHandler::OptionParser.parse_options(ARGV)
 
 # Parse subcommand
 subcommand = ARGV[0]
@@ -60,7 +38,6 @@ elsif subcommand == "del"
 
 else
 
-  options = parse_options(ARGV)
   projects.display_tasks({ project: options[:project], duedate: options[:duedate]})
 
 end
