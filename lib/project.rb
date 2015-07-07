@@ -31,6 +31,11 @@ module TaskHandler
 
       tasks_to_display = @tasks
 
+      # Hide closed tasks.
+      if filters[:display_all].nil?
+        tasks_to_display = tasks_to_display.select { |item| item[:status] == "open" || item[:status].nil?  }
+      end
+
       if !filters[:project].nil?
         tasks_to_display = tasks_to_display.select { |item| item[:project] == filters[:project] }
       end
@@ -61,6 +66,7 @@ module TaskHandler
             project: project['project'],
             task: task['task'],
             duedate: task['due_date'],
+            status: task['status'],
           }
         end
       end
@@ -78,6 +84,7 @@ module TaskHandler
             results[index]["tasks"] << {
               "task" => task[:task],
               "due_date" => task[:duedate],
+              "status" => task[:status],
             }
             found_flag = true
           end

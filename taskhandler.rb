@@ -34,6 +34,12 @@ elsif subcommand == "del"
 
 else
 
-  projects.display_tasks({ project: options[:project], duedate: options[:duedate]})
+  projects.display_tasks(
+    {
+      project: options[:project],
+      duedate: options[:duedate],
+      display_all: options[:display_all],
+    }
+  )
 
 end

@@ -21,6 +21,9 @@ module TaskHandler
       opt.on('-f [FILE_PATH]') do |v|
         options[:file_path] = v
       end
+      opt.on('-a') do |v|
+        options[:display_all] = v
+      end
       opt.parse!(argv)
       options
     end
