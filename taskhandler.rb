@@ -32,6 +32,14 @@ elsif subcommand == "del"
 
   projects.delete_task(ARGV[1])
 
+elsif subcommand == "open"
+
+  projects.open_task(ARGV[1])
+
+elsif subcommand == "close"
+
+  projects.close_task(ARGV[1])
+
 else
 
   projects.display_tasks(
