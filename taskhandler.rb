@@ -4,13 +4,9 @@ require 'date'
 require_relative 'lib/project'
 require_relative 'lib/option_parser'
 
-def default_file_path
-  "projects.yml"
-end
-
-projects = TaskHandler::Project.new
-projects.load_projects
 options = TaskHandler::OptionParser.parse_options(ARGV)
+projects = TaskHandler::Project.new
+projects.load_projects(options[:file_path])
 
 # Parse subcommand
 subcommand = ARGV[0]

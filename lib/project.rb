@@ -3,7 +3,11 @@ module TaskHandler
     attr_reader :projects
     attr_reader :tasks
 
-    def load_projects(filepath = "projects.yml")
+    def default_file_path
+      "projects.yml"
+    end
+
+    def load_projects(filepath)
       if !filepath.nil?
         @projects = YAML.load_file filepath
       else
