@@ -27,6 +27,18 @@ module TaskHandler
       write_to_yaml(@projects)
     end
 
+    def open_task(task_number)
+      @tasks[task_number.to_i][:status] = "open"
+      convert_tasks_to_projects(@tasks)
+      write_to_yaml(@projects)
+    end
+
+    def close_task(task_number)
+      @tasks[task_number.to_i][:status] = "closed"
+      convert_tasks_to_projects(@tasks)
+      write_to_yaml(@projects)
+    end
+
     def display_tasks(filters)
 
       tasks_to_display = @tasks
@@ -51,11 +63,12 @@ module TaskHandler
       end
 
       tasks_to_display.each_with_index do |task, index|
-        puts index.to_s + " " + task.map{ |k, v| v }.join(" ")
+        puts task.map{ |k, v| v }.join(" ")
       end
     end
 
     def convert_projects_to_tasks(projects)
+      counter = 0
       tasks = []
       projects.each do |project|
         project['tasks'].each do |task|
@@ -63,11 +76,13 @@ module TaskHandler
             task['due_date'] = 'None'
           end
           tasks << {
+            task_number: counter,
             project: project['project'],
             task: task['task'],
             duedate: task['due_date'],
             status: task['status'],
           }
+          counter += 1
         end
       end
       @tasks = tasks
@@ -75,13 +90,14 @@ module TaskHandler
 
     def convert_tasks_to_projects(tasks)
       results = []
-      tasks.each do |task|
+      tasks.each_with_index do |task, task_number|
         found_flag = false
 
         # Find project
         results.each_with_index do |result, index|
           if result["project"] == task[:project]
             results[index]["tasks"] << {
+              "task_number" => task_number,
               "task" => task[:task],
               "due_date" => task[:duedate],
               "status" => task[:status],
@@ -93,7 +109,12 @@ module TaskHandler
         if !found_flag
           results << {
             "project" => task[:project],
-            "tasks" => [{ "task" => task[:task], "due_date" => task[:duedate] }]
+            "tasks" => [{
+              "task_number" => task_number,
+              "task" => task[:task],
+              "due_date" => task[:duedate],
+              "status" => task[:status]
+            }]
           }
         end
 
