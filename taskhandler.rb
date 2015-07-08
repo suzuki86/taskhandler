@@ -22,7 +22,8 @@ if subcommand == "add"
     "tasks" => [
       {
         "task" => arg_task,
-        "due_date" => Date.parse(arg_duedate)
+        "due_date" => Date.parse(arg_duedate),
+        "status" => "open"
       }
     ]
   }
