@@ -4,18 +4,19 @@ require 'date'
 require_relative 'lib/project'
 require_relative 'lib/option_parser'
 
-options = TaskHandler::OptionParser.parse_options(ARGV)
+argv = ARGV
+options = TaskHandler::OptionParser.parse_options(argv)
 projects = TaskHandler::Project.new
 projects.load_projects(options[:file_path])
 
 # Parse subcommand
-subcommand = ARGV[0]
+subcommand = argv[0]
 
 if subcommand == "add"
 
-  arg_project = ARGV[1]
-  arg_task = ARGV[2]
-  arg_duedate = ARGV[3]
+  arg_project = argv[1]
+  arg_task = argv[2]
+  arg_duedate = argv[3]
   
   task_to_add = {
     "project" => arg_project,
@@ -31,15 +32,15 @@ if subcommand == "add"
 
 elsif subcommand == "del"
 
-  projects.delete_task(ARGV[1])
+  projects.delete_task(argv[1])
 
 elsif subcommand == "open"
 
-  projects.open_task(ARGV[1])
+  projects.open_task(argv[1])
 
 elsif subcommand == "close"
 
-  projects.close_task(ARGV[1])
+  projects.close_task(argv[1])
 
 else
 
