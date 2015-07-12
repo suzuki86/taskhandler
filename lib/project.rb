@@ -35,6 +35,7 @@ module TaskHandler
 
     def close_task(task_number)
       @tasks[task_number.to_i][:status] = "closed"
+      @tasks[task_number.to_i][:closed_at] = Date.today
       convert_tasks_to_projects(@tasks)
       write_to_yaml(@projects)
     end
@@ -101,6 +102,7 @@ module TaskHandler
               "task" => task[:task],
               "due_date" => task[:duedate],
               "status" => task[:status],
+              "closed_at" => task[:closed_at],
             }
             found_flag = true
           end
@@ -113,7 +115,8 @@ module TaskHandler
               "task_number" => task_number,
               "task" => task[:task],
               "due_date" => task[:duedate],
-              "status" => task[:status]
+              "status" => task[:status],
+              "closed_at" => task[:closed_at],
             }]
           }
         end
