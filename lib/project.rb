@@ -1,3 +1,5 @@
+require 'colorize'
+
 module TaskHandler
   class Project
     attr_reader :projects
@@ -64,7 +66,11 @@ module TaskHandler
       end
 
       tasks_to_display.each_with_index do |task, index|
-        puts task.map{ |k, v| v }.join(" ")
+        if task[:status] == "closed"
+          puts task.map{ |k, v| v }.join(" ").colorize(:green)
+        else
+          puts task.map{ |k, v| v }.join(" ")
+        end
       end
     end
 
