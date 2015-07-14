@@ -66,10 +66,11 @@ module TaskHandler
       end
 
       tasks_to_display.each_with_index do |task, index|
+        result = task.map{ |k, v| v }.join(" ")
         if task[:status] == "closed"
-          puts task.map{ |k, v| v }.join(" ").colorize(:green)
+          puts result.colorize(:green)
         else
-          puts task.map{ |k, v| v }.join(" ")
+          puts result
         end
       end
     end
