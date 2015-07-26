@@ -75,6 +75,18 @@ module TaskHandler
       end
     end
 
+    def display_status
+      open_tasks = @tasks.select do |item|
+        item[:status] == "open" || item[:status].nil?
+      end
+      closed_tasks = tasks.select do |item|
+        item[:status] == "closed"
+      end
+
+      puts "open: " + open_tasks.length.to_s
+      puts "closed: " + closed_tasks.length.to_s
+    end
+
     def convert_projects_to_tasks(projects)
       counter = 0
       tasks = []

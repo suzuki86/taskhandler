@@ -48,6 +48,10 @@ elsif subcommand == "close"
 
   projects.close_task(argv[1])
 
+elsif subcommand == "status"
+
+  projects.display_status
+
 else
 
   projects.display_tasks(
