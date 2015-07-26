@@ -75,7 +75,7 @@ module TaskHandler
       end
     end
 
-    def display_status
+    def display_stats
       open_tasks = @tasks.select do |item|
         item[:status] == "open" || item[:status].nil?
       end

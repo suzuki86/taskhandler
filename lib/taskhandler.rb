@@ -51,9 +51,9 @@ module TaskHandler
 
         projects.close_task(argv[1])
 
-      elsif subcommand == "status"
+      elsif subcommand == "stats"
 
-        projects.display_status
+        projects.display_stats
 
       else
 
