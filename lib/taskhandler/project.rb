@@ -6,7 +6,7 @@ module TaskHandler
     attr_reader :tasks
 
     def default_file_path
-      "projects.yml"
+      File.expand_path("~/.taskhandler/projects.yml")
     end
 
     def load_projects(filepath)
