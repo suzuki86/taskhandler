@@ -1,6 +1,7 @@
 require 'pp'
 require 'yaml'
 require 'date'
+require 'taskhandler/version'
 require 'taskhandler/project'
 require 'taskhandler/option_parser'
 
