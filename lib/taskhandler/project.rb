@@ -26,7 +26,11 @@ module TaskHandler
       if arg_duedate === "today"
         arg_duedate = Date.today
       else
-        arg_duedate = Date.parse(arg_duedate)
+        begin
+          arg_duedate = Date.parse(arg_duedate)
+        rescue => e
+          raise ArgumentError, "Due date you passed is invalid date. Task was not added."
+        end
       end
 
       task_to_add = {
