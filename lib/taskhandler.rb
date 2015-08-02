@@ -18,27 +18,8 @@ module TaskHandler
 
       if subcommand == "add"
 
-        arg_project = argv[1]
-        arg_task = argv[2]
-        arg_duedate = argv[3]
-
-        if arg_duedate === "today"
-          arg_duedate = Date.today
-        else
-          arg_duedate = Date.parse(arg_duedate)
-        end
-        
-        task_to_add = {
-          "project" => arg_project,
-          "tasks" => [
-            {
-              "task" => arg_task,
-              "due_date" => arg_duedate,
-              "status" => "open"
-            }
-          ]
-        }
-        projects.add_task(task_to_add) 
+        tasks_to_add = projects.build_task(argv)
+        projects.add_task(tasks_to_add)
         projects.write_to_yaml(projects.projects)
 
       elsif subcommand == "del"
