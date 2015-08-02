@@ -39,18 +39,22 @@ module TaskHandler
           ]
         }
         projects.add_task(task_to_add) 
+        projects.write_to_yaml(projects.projects)
 
       elsif subcommand == "del"
 
         projects.delete_task(argv[1])
+        projects.write_to_yaml(projects.projects)
 
       elsif subcommand == "open"
 
         projects.open_task(argv[1])
+        projects.write_to_yaml(projects.projects)
 
       elsif subcommand == "close"
 
         projects.close_task(argv[1])
+        projects.write_to_yaml(projects.projects)
 
       elsif subcommand == "stats"
 

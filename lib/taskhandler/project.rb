@@ -20,26 +20,22 @@ module TaskHandler
 
     def add_task(task)
       @projects << task
-      write_to_yaml(@projects)
     end
 
     def delete_task(task_number)
       @tasks.delete_at(task_number.to_i)
       convert_tasks_to_projects(@tasks)
-      write_to_yaml(@projects)
     end
 
     def open_task(task_number)
       @tasks[task_number.to_i][:status] = "open"
       convert_tasks_to_projects(@tasks)
-      write_to_yaml(@projects)
     end
 
     def close_task(task_number)
       @tasks[task_number.to_i][:status] = "closed"
       @tasks[task_number.to_i][:closed_at] = Date.today
       convert_tasks_to_projects(@tasks)
-      write_to_yaml(@projects)
     end
 
     def display_tasks(filters)
