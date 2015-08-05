@@ -89,6 +89,7 @@ module TaskHandler
       end
 
       tasks_to_display.each_with_index do |task, index|
+        task[:project] = "[" + task[:project]  + "]"
         result = task.map{ |k, v| v }.join(" ")
         if task[:status] == "closed"
           puts result.colorize(:green)
