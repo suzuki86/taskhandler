@@ -5,8 +5,35 @@ module TaskHandler
     attr_reader :projects
     attr_reader :tasks
 
+    def init
+      create_dir
+      create_project_file
+    end
+
     def default_file_path
       File.expand_path("~/.taskhandler/projects.yml")
+    end
+
+    def create_dir
+      target = File.expand_path("~/.taskhandler")
+      unless File.exists?(target)
+        Dir.mkdir File.expand_path(target)
+        puts "Directory is created."
+      else
+        puts "Directory already exists. Skipping to create directory."
+      end
+    end
+
+    def create_project_file
+      target = File.expand_path("~/.taskhandler/projects.yml")
+      unless File.exists?(target)
+        File.open(File.expand_path(target), "w") do |f|
+          f.write("")
+        end
+        puts "projects.yml is created."
+      else
+        puts "projects.yml already exists. Skipping to create file."
+      end
     end
 
     def load_projects(filepath)

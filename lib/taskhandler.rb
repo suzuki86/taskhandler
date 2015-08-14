@@ -11,10 +11,19 @@ module TaskHandler
       argv = ARGV
       options = TaskHandler::OptionParser.parse_options(argv)
       projects = TaskHandler::Project.new
-      projects.load_projects(options[:file_path])
 
       # Parse subcommand
       subcommand = argv[0]
+
+      if subcommand == "init"
+
+        projects.init
+        return
+
+      end
+
+      projects.load_projects(options[:file_path])
+
 
       if subcommand == "add"
 
