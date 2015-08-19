@@ -42,7 +42,13 @@ module TaskHandler
       else
         @projects = YAML.load_file default_file_path
       end
-      @tasks = convert_projects_to_tasks(@projects)
+
+      if @projects.is_a?(Array)
+        @tasks = convert_projects_to_tasks(@projects)
+      else
+        @projects = []
+        @tasks = []
+      end
     end
 
     def build_task(argv)

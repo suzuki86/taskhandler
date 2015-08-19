@@ -7,60 +7,68 @@ require 'taskhandler/option_parser'
 
 module TaskHandler
   class Runner
-    def self.invoke
-      argv = ARGV
-      options = TaskHandler::OptionParser.parse_options(argv)
-      projects = TaskHandler::Project.new
 
-      # Parse subcommand
-      subcommand = argv[0]
+    class << self
 
-      if subcommand == "init"
-
-        projects.init
-        return
-
+      def argv
+        ARGV
       end
 
-      projects.load_projects(options[:file_path])
+      def invoke
+        options = TaskHandler::OptionParser.parse_options(argv)
+        projects = TaskHandler::Project.new
+
+        # Parse subcommand
+        subcommand = argv[0]
+
+        if subcommand == "init"
+
+          projects.init
+          return
+
+        end
+
+        projects.load_projects(options[:file_path])
 
 
-      if subcommand == "add"
+        if subcommand == "add"
 
-        tasks_to_add = projects.build_task(argv)
-        projects.add_task(tasks_to_add)
-        projects.write_to_yaml(projects.projects)
+          tasks_to_add = projects.build_task(argv)
+          projects.add_task(tasks_to_add)
+          projects.write_to_yaml(projects.projects)
 
-      elsif subcommand == "del"
+        elsif subcommand == "del"
 
-        projects.delete_task(argv[1])
-        projects.write_to_yaml(projects.projects)
+          projects.delete_task(argv[1])
+          projects.write_to_yaml(projects.projects)
 
-      elsif subcommand == "open"
+        elsif subcommand == "open"
 
-        projects.open_task(argv[1])
-        projects.write_to_yaml(projects.projects)
+          projects.open_task(argv[1])
+          projects.write_to_yaml(projects.projects)
 
-      elsif subcommand == "close"
+        elsif subcommand == "close"
 
-        projects.close_task(argv[1])
-        projects.write_to_yaml(projects.projects)
+          projects.close_task(argv[1])
+          projects.write_to_yaml(projects.projects)
 
-      elsif subcommand == "stats"
+        elsif subcommand == "stats"
 
-        projects.display_stats
+          projects.display_stats
 
-      else
+        else
 
-        projects.display_tasks(
-          {
-            project: options[:project],
-            duedate: options[:duedate],
-            display_all: options[:display_all],
-          }
-        )
+          projects.display_tasks(
+            {
+              project: options[:project],
+              duedate: options[:duedate],
+              display_all: options[:display_all],
+            }
+          )
 
+        end
       end
+
     end
   end
 end
