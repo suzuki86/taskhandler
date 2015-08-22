@@ -15,9 +15,11 @@ module TaskHandler
       @options ||= TaskHandler::OptionParser.parse_options(argv)
     end
 
-    def invoke
-      projects = TaskHandler::Project.new
+    def projects
+      @projects ||= TaskHandler::Project.new
+    end
 
+    def invoke
       # Parse subcommand
       subcommand = argv[0]
 
