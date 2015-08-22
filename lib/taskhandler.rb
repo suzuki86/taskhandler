@@ -32,7 +32,6 @@ module TaskHandler
 
       projects.load_projects(options[:file_path])
 
-
       if subcommand == "add"
 
         tasks_to_add = projects.build_task(argv)
