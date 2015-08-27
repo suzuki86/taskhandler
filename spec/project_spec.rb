@@ -56,6 +56,22 @@ describe "TaskHanlder::Project" do
         project.build_task(["test_project", "test_task", "2011-01-32"])
       end.to raise_error(ArgumentError)
     end
+
+    it "returns expected hash" do
+      project = TaskHandler::Project.new
+      task = project.build_task(["", "test_project", "test_task", "2015-08-01"])
+      expected = {
+        "project" => "test_project",
+        "tasks" => [
+          {
+            "task" => "test_task",
+            "due_date" => Date.parse("2015-08-01"),
+            "status" => "open"
+          }
+        ]
+      }
+      expect(task).to match expected
+    end
   end
 
 end
