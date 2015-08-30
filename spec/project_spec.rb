@@ -111,4 +111,30 @@ describe "TaskHanlder::Project" do
     end
   end
 
+  describe "#add_task" do
+    it "adds task as expected" do
+      require 'tempfile'
+      project = TaskHandler::Project.new
+      tmpfile = Tempfile.open(["projects", ".yml"]) do |fp|
+        # fp.puts ""
+        project.load_projects(fp.path)
+      end
+      tasks_to_add = project.build_task(
+        ["", "test_project", "test_task", "today"]
+      )
+      project.add_task(tasks_to_add)
+      expected = [{
+        "project" => "test_project",
+        "tasks" => [
+          {
+            "task" => "test_task",
+            "due_date" => Date.today,
+            "status" => "open"
+          }
+        ]
+      }]
+      expect(project.projects).to match expected
+    end
+  end
+
 end
