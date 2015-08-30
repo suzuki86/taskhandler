@@ -116,7 +116,6 @@ describe "TaskHanlder::Project" do
       require 'tempfile'
       project = TaskHandler::Project.new
       tmpfile = Tempfile.open(["projects", ".yml"]) do |fp|
-        # fp.puts ""
         project.load_projects(fp.path)
       end
       tasks_to_add = project.build_task(
