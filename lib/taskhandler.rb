@@ -6,6 +6,10 @@ require 'taskhandler/project'
 require 'taskhandler/option_parser'
 
 module TaskHandler
+
+  STATUS_OPEN = "open"
+  STATUS_CLOSED = "closed"
+
   class Runner
     def argv
       ARGV

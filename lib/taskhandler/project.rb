@@ -72,7 +72,7 @@ module TaskHandler
           {
             "task" => arg_task,
             "due_date" => arg_duedate,
-            "status" => "open"
+            "status" => STATUS_OPEN
           }
         ]
       }
@@ -88,12 +88,12 @@ module TaskHandler
     end
 
     def open_task(task_number)
-      @tasks[task_number.to_i][:status] = "open"
+      @tasks[task_number.to_i][:status] = STATUS_OPEN
       convert_tasks_to_projects(@tasks)
     end
 
     def close_task(task_number)
-      @tasks[task_number.to_i][:status] = "closed"
+      @tasks[task_number.to_i][:status] = STATUS_CLOSED
       @tasks[task_number.to_i][:closed_at] = Date.today
       convert_tasks_to_projects(@tasks)
     end
@@ -104,7 +104,7 @@ module TaskHandler
 
       # Hide closed tasks.
       if filters[:display_all].nil?
-        tasks_to_display = tasks_to_display.select { |item| item[:status] == "open" || item[:status].nil?  }
+        tasks_to_display = tasks_to_display.select { |item| item[:status] == STATUS_OPEN || item[:status].nil?  }
       end
 
       if !filters[:project].nil?
@@ -134,10 +134,10 @@ module TaskHandler
 
     def display_stats
       open_tasks = @tasks.select do |item|
-        item[:status] == "open" || item[:status].nil?
+        item[:status] == STATUS_OPEN || item[:status].nil?
       end
       closed_tasks = tasks.select do |item|
-        item[:status] == "closed"
+        item[:status] == STATUS_CLOSED
       end
 
       puts "open: " + open_tasks.length.to_s
