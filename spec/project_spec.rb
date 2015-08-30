@@ -1,6 +1,36 @@
 require 'spec_helper'
 
 describe "TaskHanlder::Project" do
+  describe "#convert_tasks_to_projects" do
+    it "converts tasks to projects as expected" do
+      project = TaskHandler::Project.new
+      tasks_to_add = [
+        {
+          :project => "project1",
+          :task => "task1",
+          :duedate => "2015-08-01",
+          :status => "open",
+        }
+      ]
+      expected = [
+        {
+          "project" => "project1",
+          "tasks" => [
+            {
+              "task_number" => 0,
+              "task" => "task1",
+              "due_date" => "2015-08-01",
+              "status" => "open",
+              "closed_at" => nil,
+            }
+          ]
+        }
+      ]
+      project.convert_tasks_to_projects(tasks_to_add)
+      expect(project.projects).to match expected
+    end
+  end
+
   describe "#convert_projects_to_tasks" do
     it "converts projects to tasks as expected" do
       project = TaskHandler::Project.new
