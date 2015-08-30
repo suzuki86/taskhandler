@@ -93,6 +93,22 @@ describe "TaskHanlder::Project" do
       }
       expect(task).to match expected
     end
+
+    it "returns expected hash when today is passed as due date" do
+      project = TaskHandler::Project.new
+      task = project.build_task(["", "test_project", "test_task", "today"])
+      expected = {
+        "project" => "test_project",
+        "tasks" => [
+          {
+            "task" => "test_task",
+            "due_date" => Date.today,
+            "status" => "open"
+          }
+        ]
+      }
+      expect(task).to match expected
+    end
   end
 
 end
