@@ -6,6 +6,8 @@ This project is under development.
 
 Handle tasks or todos by command line.
 
+[![Build Status](https://travis-ci.org/suzuki86/taskhandler.svg?branch=master)](https://travis-ci.org/suzuki86/taskhandler)
+
 ## Usage
 
 This gem needs `project.yml` that stores formatted tasks to manage. So first, create `~/.taskhandler/project.yml`. Or you can also create it by `th init` command.
