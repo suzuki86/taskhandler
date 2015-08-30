@@ -57,6 +57,13 @@ describe "TaskHanlder::Project" do
       end.to raise_error(ArgumentError)
     end
 
+    it "raises error when invalid string passed as due date" do
+      project = TaskHandler::Project.new
+      expect do
+        project.build_task(["", "test_project", "test_task", "invalid_string"])
+      end.to raise_error(ArgumentError)
+    end
+
     it "returns expected hash" do
       project = TaskHandler::Project.new
       task = project.build_task(["", "test_project", "test_task", "2015-08-01"])
