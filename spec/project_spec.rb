@@ -50,14 +50,14 @@ describe "TaskHanlder::Project" do
   end
 
   describe "#build_task" do
-    it "raises error when invalid date passed as due date" do
+    it "raises error when invalid date is passed as due date" do
       project = TaskHandler::Project.new
       expect do
         project.build_task(["", "test_project", "test_task", "2011-01-32"])
       end.to raise_error(ArgumentError)
     end
 
-    it "raises error when invalid string passed as due date" do
+    it "raises error when invalid string is passed as due date" do
       project = TaskHandler::Project.new
       expect do
         project.build_task(["", "test_project", "test_task", "invalid_string"])
