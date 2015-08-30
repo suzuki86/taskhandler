@@ -67,7 +67,14 @@ describe "TaskHanlder::Project" do
     it "raises error when empty string is passed as due date" do
       project = TaskHandler::Project.new
       expect do
-        project.build_task(["", "test_project", "test_task", "invalid_string"])
+        project.build_task(["", "test_project", "test_task", ""])
+      end.to raise_error(ArgumentError)
+    end
+
+    it "raises error when no due date is passed" do
+      project = TaskHandler::Project.new
+      expect do
+        project.build_task(["", "test_project", "test_task"])
       end.to raise_error(ArgumentError)
     end
 
