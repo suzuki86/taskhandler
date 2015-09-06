@@ -173,4 +173,20 @@ describe "TaskHanlder::Project" do
     end
   end
 
+  describe "#delete_task" do
+    it "deletes specified task collectly" do
+      require 'tempfile'
+      project = TaskHandler::Project.new
+      tmpfile = Tempfile.open(["projects", ".yml"]) do |fp|
+        project.load_projects(fp.path)
+      end
+      tasks_to_add = project.build_task(
+        ["", "test_project", "test_task", "today"]
+      )
+      project.add_task(tasks_to_add)
+      project.delete_task(0)
+      expect(project.projects).to match []
+    end
+  end
+
 end
