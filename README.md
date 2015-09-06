@@ -10,7 +10,7 @@ Handle tasks or todos by command line.
 
 ## Usage
 
-This gem needs `project.yml` that stores formatted tasks to manage. So first, create `~/.taskhandler/project.yml`. Or you can also create it by `th init` command.
+This gem needs `projects.yml` that stores formatted tasks to manage. So first, create `~/.taskhandler/projects.yml`. Or you can also create it by `th init` command.
 
 ### Create empty projects.yml
 
