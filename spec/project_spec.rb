@@ -101,6 +101,13 @@ describe "TaskHanlder::Project" do
       end.to raise_error(ArgumentError)
     end
 
+    it "raises error when nil is passed as due date" do
+      project = TaskHandler::Project.new
+      expect do
+        project.build_task(["", "test_project", "test_task", nil])
+      end.to raise_error(ArgumentError)
+    end
+
     it "raises error when no due date is passed" do
       project = TaskHandler::Project.new
       expect do
