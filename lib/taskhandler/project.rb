@@ -4,10 +4,18 @@ module TaskHandler
   class Project
     attr_reader :projects
     attr_reader :tasks
+    attr_reader :config
 
     def init
       create_dir
       create_project_file
+    end
+
+    def load_config
+      config_path = File.expand_path("~/.taskhandler/config.yml")
+      if File.exists?(config_path)
+        @config = YAML.load_file config_path
+      end
     end
 
     def default_file_path
