@@ -16,8 +16,12 @@ module TaskHandler
       create_project_file
     end
 
+    def config
+      @config
+    end
+
     def load_config
-      config_path = File.expand_path(DEFAULT_CONFIG_PATH)
+      config_path = File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_CONFIG_FILENAME)
       if File.exists?(config_path)
         @config = YAML.load_file config_path
       end
@@ -29,6 +33,10 @@ module TaskHandler
 
     def default_file_path
       File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_PROJECT_FILENAME)
+    end
+
+    def project_file_path
+      !config['project_file_path'].empty? ? config['project_file_path'] : default_file_path
     end
 
     def create_dir
@@ -70,7 +78,7 @@ module TaskHandler
       if !filepath.nil?
         @projects = YAML.load_file filepath
       elsif File.exists?(default_file_path)
-        @projects = YAML.load_file default_file_path
+        @projects = YAML.load_file project_file_path
       else
         @projects = []
       end
@@ -237,7 +245,7 @@ module TaskHandler
       if !File.exists?(default_file_path)
         create_project_file
       end
-      File.write default_file_path, projects.to_yaml
+      File.write project_file_path, projects.to_yaml
     end
 
   end

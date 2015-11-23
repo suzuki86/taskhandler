@@ -34,6 +34,7 @@ module TaskHandler
 
       end
 
+      projects.load_config
       projects.load_projects(options[:file_path])
 
       if subcommand == "add"
