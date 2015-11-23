@@ -189,17 +189,4 @@ describe "TaskHanlder::Project" do
     end
   end
 
-
-  describe "#load_config" do
-    it "loads config from config.yml" do
-      project = TaskHandler::Project.new
-      project.load_config
-      expected = {
-       "project_file_path" => "~/.taskhandler/projects.yml"
-      }
-      expect(project.config).to match expected
-      expect(project.config["project_file_path"]).to eq "~/.taskhandler/projects.yml"
-    end
-  end
-
 end
