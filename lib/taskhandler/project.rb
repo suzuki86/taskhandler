@@ -12,6 +12,7 @@ module TaskHandler
 
     def init
       create_dir
+      create_config_file
       create_project_file
     end
 
@@ -20,6 +21,10 @@ module TaskHandler
       if File.exists?(config_path)
         @config = YAML.load_file config_path
       end
+    end
+
+    def default_config_file_path
+      File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_CONFIG_FILENAME)
     end
 
     def default_file_path
@@ -33,6 +38,19 @@ module TaskHandler
         puts "Directory is created."
       else
         puts "Directory already exists. Skipping to create directory."
+      end
+    end
+
+    def create_config_file
+      target = default_config_file_path
+      unless File.exists?(target)
+        File.open(File.expand_path(target), "w") do |f|
+          config = {"project_file_path" => default_file_path}
+          f.write(config.to_yaml)
+        end
+        puts "config.yml is created."
+      else
+        puts "config.yml already exists. Skipping to create file."
       end
     end
 
