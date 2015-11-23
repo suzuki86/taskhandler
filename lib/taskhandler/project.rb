@@ -49,8 +49,10 @@ module TaskHandler
     def load_projects(filepath)
       if !filepath.nil?
         @projects = YAML.load_file filepath
-      else
+      elsif File.exists?(default_file_path)
         @projects = YAML.load_file default_file_path
+      else
+        @projects = []
       end
 
       if @projects.is_a?(Array)
