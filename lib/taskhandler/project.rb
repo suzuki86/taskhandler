@@ -234,6 +234,9 @@ module TaskHandler
     end
 
     def write_to_yaml(projects)
+      if !File.exists?(default_file_path)
+        create_project_file
+      end
       File.write default_file_path, projects.to_yaml
     end
 
