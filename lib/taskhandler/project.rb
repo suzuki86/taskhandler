@@ -6,7 +6,9 @@ module TaskHandler
     attr_reader :tasks
     attr_reader :config
 
-    DEFAULT_CONFIG_PATH = "~/.taskhandler/config.yml"
+    DEFAULT_CONFIG_PATH = "~/.taskhandler/"
+    DEFAULT_PROJECT_FILENAME = "projects.yml"
+    DEFAULT_CONFIG_FILENAME = "config.yml"
 
     def init
       create_dir
@@ -21,11 +23,11 @@ module TaskHandler
     end
 
     def default_file_path
-      File.expand_path("~/.taskhandler/projects.yml")
+      File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_PROJECT_FILENAME)
     end
 
     def create_dir
-      target = File.expand_path("~/.taskhandler")
+      target = File.expand_path(DEFAULT_CONFIG_PATH)
       unless File.exists?(target)
         Dir.mkdir File.expand_path(target)
         puts "Directory is created."
@@ -35,7 +37,7 @@ module TaskHandler
     end
 
     def create_project_file
-      target = File.expand_path("~/.taskhandler/projects.yml")
+      target = default_file_path
       unless File.exists?(target)
         File.open(File.expand_path(target), "w") do |f|
           f.write("")
