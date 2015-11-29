@@ -14,23 +14,19 @@ module TaskHandler
     end
 
     def config
-      @config || Config.new.load
-    end
-
-    def default_config_file_path
-      File.expand_path(Config::DEFAULT_CONFIG_PATH + Config::DEFAULT_CONFIG_FILENAME)
-    end
-
-    def default_file_path
-      File.expand_path(Config::DEFAULT_CONFIG_PATH + Config::DEFAULT_PROJECT_FILENAME)
+      @config || Config.load
     end
 
     def project_file_path
-      !config['project_file_path'].empty? ? config['project_file_path'] : default_file_path
+      if config && !config['project_file_path'].empty?
+        config['project_file_path']
+      else
+        Config.default_file_path
+      end
     end
 
     def create_dir
-      target = File.expand_path(Config::DEFAULT_CONFIG_PATH)
+      target = File.expand_path(Config.default_config_path)
       unless File.exists?(target)
         Dir.mkdir File.expand_path(target)
         puts "Directory is created."
@@ -40,10 +36,10 @@ module TaskHandler
     end
 
     def create_config_file
-      target = default_config_file_path
+      target = Config.default_config_file_path
       unless File.exists?(target)
         File.open(File.expand_path(target), "w") do |f|
-          config = {"project_file_path" => default_file_path}
+          config = {"project_file_path" => Config.default_file_path}
           f.write(config.to_yaml)
         end
         puts "config.yml is created."
@@ -53,7 +49,7 @@ module TaskHandler
     end
 
     def create_project_file
-      target = default_file_path
+      target = Config.default_file_path
       unless File.exists?(target)
         File.open(File.expand_path(target), "w") do |f|
           f.write("")
@@ -67,7 +63,7 @@ module TaskHandler
     def load_projects(filepath)
       if !filepath.nil?
         @projects = YAML.load_file filepath
-      elsif File.exists?(default_file_path)
+      elsif File.exists?(Config.default_file_path)
         @projects = YAML.load_file project_file_path
       else
         @projects = []
@@ -232,7 +228,7 @@ module TaskHandler
     end
 
     def write_to_yaml(projects)
-      if !File.exists?(default_file_path)
+      if !File.exists?(Config.default_file_path)
         create_project_file
       end
       File.write project_file_path, projects.to_yaml
