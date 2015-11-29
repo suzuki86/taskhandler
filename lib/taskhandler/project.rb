@@ -1,3 +1,4 @@
+require 'taskhandler/config'
 require 'colorize'
 
 module TaskHandler
@@ -6,10 +7,6 @@ module TaskHandler
     attr_reader :tasks
     attr_reader :config
 
-    DEFAULT_CONFIG_PATH = "~/.taskhandler/"
-    DEFAULT_PROJECT_FILENAME = "projects.yml"
-    DEFAULT_CONFIG_FILENAME = "config.yml"
-
     def init
       create_dir
       create_config_file
@@ -17,22 +14,15 @@ module TaskHandler
     end
 
     def config
-      @config
-    end
-
-    def load_config
-      config_path = File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_CONFIG_FILENAME)
-      if File.exists?(config_path)
-        @config = YAML.load_file config_path
-      end
+      @config || Config.new.load
     end
 
     def default_config_file_path
-      File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_CONFIG_FILENAME)
+      File.expand_path(Config::DEFAULT_CONFIG_PATH + Config::DEFAULT_CONFIG_FILENAME)
     end
 
     def default_file_path
-      File.expand_path(DEFAULT_CONFIG_PATH + DEFAULT_PROJECT_FILENAME)
+      File.expand_path(Config::DEFAULT_CONFIG_PATH + Config::DEFAULT_PROJECT_FILENAME)
     end
 
     def project_file_path
@@ -40,7 +30,7 @@ module TaskHandler
     end
 
     def create_dir
-      target = File.expand_path(DEFAULT_CONFIG_PATH)
+      target = File.expand_path(Config::DEFAULT_CONFIG_PATH)
       unless File.exists?(target)
         Dir.mkdir File.expand_path(target)
         puts "Directory is created."
