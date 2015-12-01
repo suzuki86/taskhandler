@@ -14,7 +14,7 @@ module TaskHandler
     end
 
     def config
-      @config || Config.load
+      @config ||= Config.load
     end
 
     def project_file_path
