@@ -1,7 +1,10 @@
 require 'pp'
 require 'yaml'
 require 'date'
+require 'colorize'
 require 'taskhandler/version'
+require 'taskhandler/config'
+require 'taskhandler/setup'
 require 'taskhandler/project'
 require 'taskhandler/option_parser'
 
@@ -23,15 +26,17 @@ module TaskHandler
       @projects ||= TaskHandler::Project.new
     end
 
+    def setup
+      @setup ||= TaskHandler::Setup.new
+    end
+
     def invoke
       # Parse subcommand
       subcommand = argv[0]
 
       if subcommand == "init"
-
-        projects.init
+        setup.init
         return
-
       end
 
       projects.load_projects(options[:file_path])
