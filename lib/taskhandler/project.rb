@@ -33,12 +33,12 @@ module TaskHandler
       end
     end
 
-    def get_latest_task_number(tasks)
+    def latest_task_number(tasks)
       task_numbers = []
       tasks.each do |task|
         task_numbers << task[:task_number]
       end
-      task_numbers.max + 1
+      task_numbers.max
     end
 
     def build_task(argv)
@@ -60,7 +60,7 @@ module TaskHandler
         "project" => arg_project,
         "tasks" => [
           {
-            "task_number" => get_latest_task_number(@tasks),
+            "task_number" => latest_task_number(@tasks) + 1,
             "task" => arg_task,
             "due_date" => arg_duedate,
             "status" => STATUS_OPEN,
