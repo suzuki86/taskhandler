@@ -122,9 +122,11 @@ describe "TaskHanlder::Project" do
         "project" => "test_project",
         "tasks" => [
           {
+            "task_number" => 0,
             "task" => "test_task",
             "due_date" => Date.parse("2015-08-01"),
-            "status" => "open"
+            "status" => "open",
+            "closed_at" => nil
           }
         ]
       }
@@ -138,9 +140,11 @@ describe "TaskHanlder::Project" do
         "project" => "test_project",
         "tasks" => [
           {
+            "task_number" => 0,
             "task" => "test_task",
             "due_date" => Date.today,
-            "status" => "open"
+            "status" => "open",
+            "closed_at" => nil
           }
         ]
       }
@@ -163,9 +167,11 @@ describe "TaskHanlder::Project" do
         "project" => "test_project",
         "tasks" => [
           {
+            "task_number" => 0,
             "task" => "test_task",
             "due_date" => Date.today,
-            "status" => "open"
+            "status" => "open",
+            "closed_at" => nil
           }
         ]
       }]

@@ -35,10 +35,14 @@ module TaskHandler
 
     def latest_task_number(tasks)
       task_numbers = []
-      tasks.each do |task|
-        task_numbers << task[:task_number]
+      if tasks && tasks != []
+        tasks.each do |task|
+          task_numbers << task[:task_number]
+        end
+        task_numbers.max
+      else
+        -1
       end
-      task_numbers.max
     end
 
     def build_task(argv)
